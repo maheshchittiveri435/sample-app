@@ -16,7 +16,7 @@ public class HotelAPITest {
 
     private static Process process;
 
-    @BeforeClass
+   // @BeforeClass
     public static void startServer() throws Exception {
         String command = System.getProperty("javaCommandParam");
         process = Runtime.getRuntime().exec(command);
@@ -61,7 +61,7 @@ public class HotelAPITest {
         }
     }
 
-    @AfterClass
+   // @AfterClass
     public static void closeServer() throws IOException{
         String stopCommand = "jcmd " + process.pid() + " VM.stop";
         System.out.println("Stop Server command : " + stopCommand);
