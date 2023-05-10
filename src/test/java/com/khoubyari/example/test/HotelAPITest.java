@@ -1,5 +1,4 @@
 package com.khoubyari.example.test;
-import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -8,10 +7,21 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.junit.AfterClass;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class HotelAPITest {
+
+    private Process process;
+
+    @BeforeClass
+    public void startServer() throws IOException {
+        String command = System.getProperty("javaCommandParam");
+        process = Runtime.getRuntime().exec(command);
+    }
+
     @Test
     public void createHotel() throws Exception {
         try {
@@ -47,5 +57,11 @@ public class HotelAPITest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @AfterClass
+    public void closeServer() throws IOException{
+        String stopCommand = "jcmd " + process.pid() + " VM.stop";
+        Runtime.getRuntime().exec(stopCommand);
     }
 }
